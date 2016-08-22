@@ -1,0 +1,129 @@
+﻿@model IEnumerable<QueueSystem.Models.ManHinh>
+@{
+    ViewBag.Title = "Home";
+    //Layout = "~/Views/Shared/_LayoutView.cshtml";
+}
+
+<div class="row" >
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2" style="text-align:center">
+            <i class="fa fa-television fa-5x" aria-hidden="true"></i>
+            <p><a class="btn" title="Hiển thị màn hình" href="#" onclick="window.open('/HeThongSos/ViewDetails/' + @item.ID)">Hiển thị trang mới</a></p>
+            <p>@item.ManHinhSo</p>
+            <p>
+                @*@Html.ActionLink(item.ManHinhSo, "Details", new { id =item.ID})
+                @Html.ActionLink("Details", "Details", "HeThongSoes", new { id = item.ID })*@
+                <a class="btn" title="Hiển thị màn hình"
+                   href="#" onclick="MyFunction(@item.ID);return false;">Hiển thị màn hình</a>
+            </p>
+        </div>
+    }
+</div>
+<audio autoplay id="bgsound">
+    <source src="~/lib/Voice_mp3/c7.mp3" type="audio/mp3">
+</audio>
+@*<audio autoplay id="bgsound">
+    <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
+            type="audio/mp4">
+    <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
+            type="audio/ogg; codecs=vorbis">
+    <p>Your user agent does not support the HTML5 Audio element.</p>
+</audio>*@
+<button type="button"
+        onclick="document.getElementById('bgsound').pause();">
+    Stop background sound
+</button>
+
+<div id="conten">
+    <div id="showManHinh"></div>
+    <div id="showNext"></div>
+</div>
+<script>
+    MyFunction = function(id){
+        $('#showManHinh').empty();
+        $('#showNext').empty();
+        $.ajax({
+            type: 'GET',
+            url: '/HeThongSos/Show/' + id,
+            data: "",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                if(msg.ID != 99999){
+                    $('#showManHinh').append(
+                         msg.STT
+                    );
+                    $('#showNext').append(
+                         '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
+                         +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
+                    );
+                }else{
+                    $('#showManHinh').append(
+                         "Đã hết lượt khám"
+                    );
+                }
+            }
+        });
+    }
+    Next = function(id){
+        $('#showManHinh').empty();
+        $('#showNext').empty();
+        $.ajax({
+            type: 'GET',
+            url: '/HeThongSos/ShowSo/' + id,
+            data: "",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                if(msg.STT != 0){
+                    $('#showManHinh').append(
+                         msg.STT
+                    );
+                    $('#showNext').append(
+                         '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
+                         +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
+                    );
+                }else{
+                    $('#showManHinh').append(
+                         "Đã hết lượt khám"
+                    );
+                }
+            }
+        });
+    };
+</script>
+<style type="text/css">
+    /*div #conten{
+        background-image: url('../../Images/tv_PNG479.png');
+        top: 50%;
+        left: 50%;
+        padding: 20px;
+        resize: both;
+        overflow: auto;
+        background-repeat:no-repeat;
+        background-size:contain;
+        background-position:center;
+        min-height: 400px;
+        min-width: 400px;
+        overflow: auto;
+        padding: 20px;
+        resize: both;
+        top: 50%;
+    }*/
+    div #conten #showManHinh {
+      width: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      resize: both;
+      font-size: 80px;
+    }
+    div #conten #showNext {
+      width: 50%;
+      position: absolute;
+      top: 70%;
+      left: 40%;
+      resize: both;
+    }
+</style>

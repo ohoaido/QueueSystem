@@ -1,0 +1,56 @@
+﻿@model QueueSystem.Models.HeThongSo
+@{
+    ViewBag.Title = "ViewDetails";
+    Layout = "";
+}
+
+<div id="stockTable">
+    @Html.DisplayFor(model => model.STT)
+</div>
+@*<script src="/SignalR.Sample/jquery-1.10.2.min.js"></script>
+<script src="/SignalR.Sample/jquery.color-2.1.2.min.js"></script>
+<script src="/Scripts/jquery.signalR-2.2.1.js"></script>
+<script src="../signalr/hubs"></script>
+<script src="/SignalR.Sample/HeThongSoSignalr.js"></script>*@
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    //setTimeout(function () {
+    //    //window.location.reload(1);
+    //    var url = window.location.pathname;
+    //    var id = url.substring(url.lastIndexOf('/') + 1);
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: '/HeThongSos/ShowSo/' + id,
+    //        data: "",
+    //        contentType: 'application/json; charset=utf-8',
+    //        dataType: 'json',
+    //        success: function (msg) {
+    //            if (msg.STT != 0) {
+    //                $('#stockTable').append(
+    //                        msg.STT
+    //                );
+    //            } 
+    //        }
+    //    });
+    //}, 2000);
+    setInterval(function () {
+        var url = window.location.pathname;
+        var id = url.substring(url.lastIndexOf('/') + 1);
+        $('#stockTable').load('/HeThongSos/TimeRS/' + id);
+    }, 2000) /* time in milliseconds (ie 2 seconds)*/
+</script>
+<style type="text/css">
+    #stockTable {
+        text-align: center;
+        font-size:300px;
+        font-weight: bold;
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px; /* margin is -0.5 * dimension */
+        margin-top: -150px; 
+    }
+</style>
