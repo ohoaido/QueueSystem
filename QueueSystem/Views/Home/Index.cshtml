@@ -14,32 +14,78 @@
             <p>
                 @*@Html.ActionLink(item.ManHinhSo, "Details", new { id =item.ID})
                 @Html.ActionLink("Details", "Details", "HeThongSoes", new { id = item.ID })*@
-                <a class="btn" title="Hiển thị màn hình"
-                   href="#" onclick="MyFunction(@item.ID);return false;">Hiển thị màn hình</a>
+                <a class="btn" title="Hiển thị cổng"
+                   href="#" onclick="MyFunction(@item.ID);return false;">Hiển thị cổng</a>
             </p>
         </div>
     }
 </div>
-<audio autoplay id="bgsound">
+@*<audio autoplay id="bgsound" preload="auto" controls="">
     <source src="~/lib/Voice_mp3/c7.mp3" type="audio/mp3">
-</audio>
-@*<audio autoplay id="bgsound">
-    <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.mp4"
-            type="audio/mp4">
-    <source src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga"
-            type="audio/ogg; codecs=vorbis">
-    <p>Your user agent does not support the HTML5 Audio element.</p>
 </audio>*@
-<button type="button"
-        onclick="document.getElementById('bgsound').pause();">
-    Stop background sound
-</button>
 
 <div id="conten">
     <div id="showManHinh"></div>
     <div id="showNext"></div>
+
+    <audio id="audio" controls="" type="audio/mp3">
+        <source type="audio/mp3" src="~/lib/Voice_mp3/m1.mp3">
+        Trình duyệt của bạn không hỗ trợ html5 để phát âm thanh
+    </audio>
+    <ul id="playlist" >
+        @*<li class="active"><a href="/lib/Voice_mp3/m1.mp3">Mời bệnh nhân</a></li>
+        <li><a href="/lib/Voice_mp3/m10.mp3">Số</a></li>*@
+        @*<li><a href="/lib/Voice_mp3/s0.mp3">0</a></li>
+        <li><a href="/lib/Voice_mp3/s1.mp3">1</a></li>
+        <li><a href="/lib/Voice_mp3/s2.mp3">2</a></li>*@
+
+    </ul>
 </div>
 <script>
+    var audio;
+    var playlist;
+    var tracks;
+    var current;
+    var lastplay = 0;
+
+    function onloadInit() {
+        current = 0;
+        audio = $('audio');
+        playlist = $('#playlist');
+        tracks = playlist.find('li a');
+        len = tracks.length - 1;
+        audio[0].volume = 1;
+        playlist.find('a').click(function (e) {
+            e.preventDefault();
+            link = $(this);
+            current = link.parent().index();
+            run(link, audio[0], lastplay);
+        });
+        audio[0].addEventListener('ended', function (e) {
+            current++;
+            if (current > len) {
+                current = 0;
+                link = playlist.find('a')[0];
+                lastplay = 1;
+            } else {
+                link = playlist.find('a')[current];
+                lastplay = 0;
+            }
+            run($(link), audio[0], lastplay);
+        });
+    }
+    function run(link, player, lastplay) {
+        player.src = link.attr('href');
+        par = link.parent();
+        par.addClass('active').siblings().removeClass('active');
+        audio[0].load();
+        if (lastplay != 1)
+        {
+            audio[0].play();
+        }
+        
+    }
+
     MyFunction = function(id){
         $('#showManHinh').empty();
         $('#showNext').empty();
@@ -58,6 +104,7 @@
                          '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
                          +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
                     );
+                    StrSplit(msg.STT);
                 }else{
                     $('#showManHinh').append(
                          "Đã hết lượt khám"
@@ -84,6 +131,8 @@
                          '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
                          +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
                     );
+                    StrSplit(msg.STT);
+                    onloadInit();
                 }else{
                     $('#showManHinh').append(
                          "Đã hết lượt khám"
@@ -92,6 +141,63 @@
             }
         });
     };
+    function StrSplit(str) {
+        $('#playlist').empty();
+        var output = [];
+        var sNumber = str.toString();
+        for (var i = 0, len = sNumber.length; i < len; i += 1) {
+            output.push(sNumber[i]);
+        }
+        var str = '<li class="active"><a href="/lib/Voice_mp3/m1.mp3">Mời bệnh nhân</a></li><li><a href="/lib/Voice_mp3/m3.mp3">Có số thứ tự</a></li><li><a href="/lib/Voice_mp3/m4.mp3">Vào quầy đăng ký khám số</a></li>';
+        $('#playlist').append(
+        );
+        var j = 0;
+        output.forEach(function (value) {
+            if ( 3 > output.length && output.length > 1 && value == 1 && j == 0) {
+                str += '<li><a href="/lib/Voice_mp3/sb.mp3">Mười</a></li>';
+                j++;
+            }
+            else
+            {
+                switch (value) {
+                    case "0":
+                        str += '<li><a href="/lib/Voice_mp3/s0.mp3">0</a></li>';
+                        break;
+                    case "1":
+                        str += '<li><a href="/lib/Voice_mp3/s1.mp3">1</a></li>';
+                        break;
+                    case "2":
+                        str += '<li><a href="/lib/Voice_mp3/s2.mp3">2</a></li>';
+                        break;
+                    case "3":
+                        str += '<li><a href="/lib/Voice_mp3/s3.mp3">3</a></li>';
+                        break;
+                    case "4":
+                        str += '<li><a href="/lib/Voice_mp3/s4.mp3">4</a></li>';
+                        break;
+                    case "5":
+                        str += '<li><a href="/lib/Voice_mp3/s5.mp3">5</a></li>';
+                        break;
+                    case "6":
+                        str += '<li><a href="/lib/Voice_mp3/s6.mp3">6</a></li>';
+                        break;
+                    case "7":
+                        str += '<li><a href="/lib/Voice_mp3/s7.mp3">7</a></li>';
+                        break;
+                    case "8":
+                        str += '<li><a href="/lib/Voice_mp3/s8.mp3">8</a></li>';
+                        src = "/lib/Voice_mp3/s8.mp3";
+                        break;
+                    case "9":
+                        str += '<li><a href="/lib/Voice_mp3/s9.mp3">9</a></li>';
+                        break;
+                }
+            }
+        });
+
+        $('#playlist').append(str);
+        onloadInit();
+    }
 </script>
 <style type="text/css">
     /*div #conten{
@@ -126,4 +232,8 @@
       left: 40%;
       resize: both;
     }
+    #playlist,audio{background:#666;width:400px;padding:20px;}
+    .active a{color:#5DB0E6;text-decoration:none;}
+    li a{color:#eeeedd;background:#333;padding:5px;display:block;}
+    li a:hover{text-decoration:none;}
 </style>

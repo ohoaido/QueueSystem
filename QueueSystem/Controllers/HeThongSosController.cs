@@ -58,6 +58,7 @@ namespace QueueSystem.Controllers
                 lastid = lastid + 1;
                 heThongSo.STT = lastid;
                 heThongSo.DateCreated = DateTime.Now;
+                heThongSo.Timer = DateTime.Now;
                 db.HeThongSos.Add(heThongSo);
                 db.SaveChanges();
                 return RedirectToAction("Index");

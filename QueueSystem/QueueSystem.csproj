@@ -183,6 +183,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HeThongSosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManHinhsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -379,6 +380,11 @@
     <Content Include="Views\Shared\_LayoutView.cshtml" />
     <Content Include="SignalR.Sample\jquery-1.10.2.min.map" />
     <Content Include="Views\HeThongSos\ViewDetails.cshtml" />
+    <Content Include="Views\Information\Create.cshtml" />
+    <Content Include="Views\Information\Delete.cshtml" />
+    <Content Include="Views\Information\Details.cshtml" />
+    <Content Include="Views\Information\Edit.cshtml" />
+    <Content Include="Views\Information\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
