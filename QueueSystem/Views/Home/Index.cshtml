@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<QueueSystem.Models.ManHinh>
 @{
     ViewBag.Title = "Home";
-    //Layout = "~/Views/Shared/_LayoutView.cshtml";
+    //Layout = "/Views/Shared/_LayoutView.cshtml";
 }
 
 <div class="row" >
@@ -21,183 +21,206 @@
     }
 </div>
 @*<audio autoplay id="bgsound" preload="auto" controls="">
-    <source src="~/lib/Voice_mp3/c7.mp3" type="audio/mp3">
+    <source src="/lib/Voice_mp3/c7.mp3" type="audio/mp3">
 </audio>*@
 
 <div id="conten">
     <div id="showManHinh"></div>
     <div id="showNext"></div>
 
-    <audio id="audio" controls="" type="audio/mp3">
-        <source type="audio/mp3" src="~/lib/Voice_mp3/m1.mp3">
+    @*<audio id="audio" controls="" type="audio/mp3">
+        <source type="audio/mp3" src="/lib/Voice_mp3/m1.mp3">
         Trình duyệt của bạn không hỗ trợ html5 để phát âm thanh
     </audio>
     <ul id="playlist" >
-        @*<li class="active"><a href="/lib/Voice_mp3/m1.mp3">Mời bệnh nhân</a></li>
-        <li><a href="/lib/Voice_mp3/m10.mp3">Số</a></li>*@
-        @*<li><a href="/lib/Voice_mp3/s0.mp3">0</a></li>
-        <li><a href="/lib/Voice_mp3/s1.mp3">1</a></li>
-        <li><a href="/lib/Voice_mp3/s2.mp3">2</a></li>*@
-
-    </ul>
+    </ul>*@
+    <audio style="display:none;" id="container" controls="" autoplay=""></audio>
 </div>
 <script>
-    var audio;
-    var playlist;
-    var tracks;
-    var current;
-    var lastplay = 0;
+    (function () {
+        var Mp3Queue = function (container, files) {
+            var index = 1;
+            if (!container || !container.tagName || container.tagName !== 'AUDIO') throw 'Invalid container';
+            if (!files || !files.length) throw 'Invalid files array';
 
-    function onloadInit() {
-        current = 0;
-        audio = $('audio');
-        playlist = $('#playlist');
-        tracks = playlist.find('li a');
-        len = tracks.length - 1;
-        audio[0].volume = 1;
-        playlist.find('a').click(function (e) {
-            e.preventDefault();
-            link = $(this);
-            current = link.parent().index();
-            run(link, audio[0], lastplay);
-        });
-        audio[0].addEventListener('ended', function (e) {
-            current++;
-            if (current > len) {
-                current = 0;
-                link = playlist.find('a')[0];
-                lastplay = 1;
-            } else {
-                link = playlist.find('a')[current];
-                lastplay = 0;
-            }
-            run($(link), audio[0], lastplay);
-        });
-    }
-    function run(link, player, lastplay) {
-        player.src = link.attr('href');
-        par = link.parent();
-        par.addClass('active').siblings().removeClass('active');
-        audio[0].load();
-        if (lastplay != 1)
-        {
-            audio[0].play();
-        }
+            var playNext = function () {
+                if (index < files.length) {
+                    container.src = files[index];
+                    index += 1;
+                } else {
+                    container.removeEventListener('ended', playNext, false);
+                }
+            };
+
+            container.addEventListener('ended', playNext);
+
+            container.src = files[0];
+        };
+
+        var container = document.getElementById('container');
+
+        //var audio;
+        //var playlist;
+        //var tracks;
+        //var current = 0;
+        //var lastplay = 0;
+
+        //function onloadInit() {
+        //    current = 0;
+        //    audio = $('audio');
+        //    playlist = $('#playlist');
+        //    tracks = playlist.find('li a');
+        //    len = tracks.length - 1;
+        //    audio[0].volume = 1;
+        //    playlist.find('a').click(function (e) {
+        //        e.preventDefault();
+        //        link = $(this);
+        //        current = link.parent().index();
+        //        run(link, audio[0], lastplay, current);
+        //    });
+        //    audio[0].addEventListener('ended', function (e) {
+        //        current++;
+        //        if (current > len) {
+        //            current = 0;
+        //            link = playlist.find('a')[0];
+        //            lastplay = 1;
+        //        } else {
+        //            link = playlist.find('a')[current];
+        //            lastplay = 0;
+        //        }
+        //        run($(link), audio[0], lastplay, current);
+        //    });
+        //}
+        //function run(link, player, lastplay, current) {
+        //    player.src = link.attr('href');
+        //    par = link.parent();
+        //    var id = $("#audi_" + current);
+        //    //id.addClass('active').siblings().removeClass('active');
+        //    par.addClass('active').siblings().removeClass('active');
+        //    audio[0].load();
+        //    if (lastplay != 1)
+        //    {
+        //        audio[0].play();
+        //    }
         
-    }
+        //}
 
-    MyFunction = function(id){
-        $('#showManHinh').empty();
-        $('#showNext').empty();
-        $.ajax({
-            type: 'GET',
-            url: '/HeThongSos/Show/' + id,
-            data: "",
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (msg) {
-                if(msg.ID != 99999){
-                    $('#showManHinh').append(
-                         msg.STT
-                    );
-                    $('#showNext').append(
-                         '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
-                         +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
-                    );
-                    StrSplit(msg.STT);
-                }else{
-                    $('#showManHinh').append(
-                         "Đã hết lượt khám"
-                    );
+        MyFunction = function(id){
+            $('#showManHinh').empty();
+            $('#showNext').empty();
+            $('#playlist').empty();
+            $.ajax({
+                type: 'GET',
+                url: '/HeThongSos/Show/' + id,
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (msg) {
+                    if(msg.ID != 99999){
+                        $('#showManHinh').append(
+                             msg.STT
+                        );
+                        $('#showNext').append(
+                             '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
+                             +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
+                        );
+                        StrSplit(msg.STT);
+                    }else{
+                        $('#showManHinh').append(
+                             "Đã hết lượt khám"
+                        );
+                    }
                 }
-            }
-        });
-    }
-    Next = function(id){
-        $('#showManHinh').empty();
-        $('#showNext').empty();
-        $.ajax({
-            type: 'GET',
-            url: '/HeThongSos/ShowSo/' + id,
-            data: "",
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (msg) {
-                if(msg.STT != 0){
-                    $('#showManHinh').append(
-                         msg.STT
-                    );
-                    $('#showNext').append(
-                         '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
-                         +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
-                    );
-                    StrSplit(msg.STT);
-                    onloadInit();
-                }else{
-                    $('#showManHinh').append(
-                         "Đã hết lượt khám"
-                    );
-                }
-            }
-        });
-    };
-    function StrSplit(str) {
-        $('#playlist').empty();
-        var output = [];
-        var sNumber = str.toString();
-        for (var i = 0, len = sNumber.length; i < len; i += 1) {
-            output.push(sNumber[i]);
+            });
         }
-        var str = '<li class="active"><a href="/lib/Voice_mp3/m1.mp3">Mời bệnh nhân</a></li><li><a href="/lib/Voice_mp3/m3.mp3">Có số thứ tự</a></li><li><a href="/lib/Voice_mp3/m4.mp3">Vào quầy đăng ký khám số</a></li>';
-        $('#playlist').append(
-        );
-        var j = 0;
-        output.forEach(function (value) {
-            if ( 3 > output.length && output.length > 1 && value == 1 && j == 0) {
-                str += '<li><a href="/lib/Voice_mp3/sb.mp3">Mười</a></li>';
-                j++;
-            }
-            else
-            {
-                switch (value) {
-                    case "0":
-                        str += '<li><a href="/lib/Voice_mp3/s0.mp3">0</a></li>';
-                        break;
-                    case "1":
-                        str += '<li><a href="/lib/Voice_mp3/s1.mp3">1</a></li>';
-                        break;
-                    case "2":
-                        str += '<li><a href="/lib/Voice_mp3/s2.mp3">2</a></li>';
-                        break;
-                    case "3":
-                        str += '<li><a href="/lib/Voice_mp3/s3.mp3">3</a></li>';
-                        break;
-                    case "4":
-                        str += '<li><a href="/lib/Voice_mp3/s4.mp3">4</a></li>';
-                        break;
-                    case "5":
-                        str += '<li><a href="/lib/Voice_mp3/s5.mp3">5</a></li>';
-                        break;
-                    case "6":
-                        str += '<li><a href="/lib/Voice_mp3/s6.mp3">6</a></li>';
-                        break;
-                    case "7":
-                        str += '<li><a href="/lib/Voice_mp3/s7.mp3">7</a></li>';
-                        break;
-                    case "8":
-                        str += '<li><a href="/lib/Voice_mp3/s8.mp3">8</a></li>';
-                        src = "/lib/Voice_mp3/s8.mp3";
-                        break;
-                    case "9":
-                        str += '<li><a href="/lib/Voice_mp3/s9.mp3">9</a></li>';
-                        break;
+        Next = function(id){
+            $('#showManHinh').empty();
+            $('#showNext').empty();
+            $('#playlist').empty();
+            $.ajax({
+                type: 'GET',
+                url: '/HeThongSos/ShowSo/' + id,
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (msg) {
+                    if(msg.STT != 0){
+                        $('#showManHinh').append(
+                             msg.STT
+                        );
+                        $('#showNext').append(
+                             '<button class="btn" onclick="Next('+id+');return false;">Gọi tiếp</button>'
+                             +'<button class="btn" onclick="MyFunction('+id+');return false;">Gọi Lại</button>'
+                        );
+                        StrSplit(msg.STT);
+                        //onloadInit();
+                    }else{
+                        $('#showManHinh').append(
+                             "Đã hết lượt khám"
+                        );
+                    }
                 }
+            });
+        };
+        function StrSplit(str) {
+            $('#playlist').empty();
+            var output = [];
+            var sNumber = str.toString();
+            for (var i = 0, len = sNumber.length; i < len; i += 1) {
+                output.push(sNumber[i]);
             }
-        });
+            var str = ['/lib/Voice_mp3/m1.mp3','/lib/Voice_mp3/m3.mp3'];
+            var j = 0;
+            output.forEach(function (value) {
+                if ( 3 > output.length && output.length > 1 && value == 1 && j == 0) {
+                    str.push('/lib/Voice_mp3/sb.mp3');
+                    j++;
+                }
+                else
+                {
+                    switch (value) {
+                        case "0":
+                            str.push('/lib/Voice_mp3/s0.mp3');
+                            break;
+                        case "1":
+                            str.push('/lib/Voice_mp3/s1.mp3');
+                            break;
+                        case "2":
+                            str.push('/lib/Voice_mp3/s2.mp3');
+                            break;
+                        case "3":
+                            str.push('/lib/Voice_mp3/s3.mp3');
+                            break;
+                        case "4":
+                            str.push('/lib/Voice_mp3/s4.mp3');
+                            break;
+                        case "5":
+                            str.push('/lib/Voice_mp3/s5.mp3');
+                            break;
+                        case "6":
+                            str.push('/lib/Voice_mp3/s6.mp3');
+                            break;
+                        case "7":
+                            str.push('/lib/Voice_mp3/s7.mp3');
+                            break;
+                        case "8":
+                            str.push('/lib/Voice_mp3/s8.mp3');
+                            break;
+                        case "9":
+                            str.push('/lib/Voice_mp3/s9.mp3');
+                            break;
+                    }
+                }
+            });
 
-        $('#playlist').append(str);
-        onloadInit();
-    }
+            //$('#playlist').append(str);
+            //onloadInit();
+            
+            new Mp3Queue(container, str);
+        }
+
+
+    })();
 </script>
 <style type="text/css">
     /*div #conten{
