@@ -19,7 +19,7 @@ namespace QueueSystem.Controllers
         // GET: HeThongSoes
         public ActionResult Index()
         {
-            return View(db.HeThongSos.ToList());
+            return View(db.HeThongSos.ToList().OrderBy(o=>o.ManHinhID));
         }
 
         // GET: HeThongSoes/Details/5
@@ -58,7 +58,8 @@ namespace QueueSystem.Controllers
                 lastid = lastid + 1;
                 heThongSo.STT = lastid;
                 heThongSo.DateCreated = DateTime.Now;
-                heThongSo.Timer = DateTime.Now;
+                heThongSo.Timers = DateTime.Now;
+                heThongSo.STTConfirmed = true;
                 db.HeThongSos.Add(heThongSo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -165,12 +166,24 @@ namespace QueueSystem.Controllers
         public JsonResult DeleteAll()
         {
             List<HeThongSo> heThongSo = db.HeThongSos.ToList();
+            var str = "";
             foreach (var item in heThongSo)
             {
-                db.HeThongSos.Remove(item);
+                if ((DateTime.Now >= item.Timers) || !item.STTConfirmed) {
+                    db.HeThongSos.Remove(item);
+                }
+                else
+                {
+                    str = "Timers";
+                }
             }
             db.SaveChanges();
-            return Json("OK", JsonRequestBehavior.AllowGet);
+            if (str == "Timers")
+            {
+                return Json("Timers", JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Json("OK", JsonRequestBehavior.AllowGet);
         }
 
         // GET: HeThongSoes/Details/5
@@ -187,7 +200,7 @@ namespace QueueSystem.Controllers
             return View(heThongSo);
         }
 
-        public JsonResult TimeRS(int id)
+        public JsonResult TimersS(int id)
         {
             HeThongSoViewModels hs = new HeThongSoViewModels();
             hs.ManHinhID = id;

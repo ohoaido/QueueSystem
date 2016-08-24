@@ -64,6 +64,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Speech" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -71,6 +75,14 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -180,27 +192,37 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApiHeThongSosController.cs" />
+    <Compile Include="Controllers\ApiInformationController.cs" />
     <Compile Include="Controllers\HeThongSosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ApiManHinhsController.cs" />
     <Compile Include="Controllers\ManHinhsController.cs" />
+    <Compile Include="Controllers\PortInfomaitonElectricsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
     <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
     <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
-    <Compile Include="Migrations\201608180621246_Init.cs" />
-    <Compile Include="Migrations\201608180621246_Init.Designer.cs">
-      <DependentUpon>201608180621246_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201608240407050_Init.cs" />
+    <Compile Include="Migrations\201608240407050_Init.Designer.cs">
+      <DependentUpon>201608240407050_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608221422263_Information.cs" />
-    <Compile Include="Migrations\201608221422263_Information.Designer.cs">
-      <DependentUpon>201608221422263_Information.cs</DependentUpon>
+    <Compile Include="Migrations\201608240409076_PortChangePhone.cs" />
+    <Compile Include="Migrations\201608240409076_PortChangePhone.Designer.cs">
+      <DependentUpon>201608240409076_PortChangePhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.cs" />
+    <Compile Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.Designer.cs">
+      <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\PortInfomaitonElectric.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\HeThongSoViewModels.cs" />
     <Compile Include="Models\HeThongSo.cs" />
@@ -385,6 +407,11 @@
     <Content Include="Views\Information\Details.cshtml" />
     <Content Include="Views\Information\Edit.cshtml" />
     <Content Include="Views\Information\Index.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Create.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Delete.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Details.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Edit.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,11 +425,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608180621246_Init.resx">
-      <DependentUpon>201608180621246_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608240407050_Init.resx">
+      <DependentUpon>201608240407050_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608221422263_Information.resx">
-      <DependentUpon>201608221422263_Information.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608240409076_PortChangePhone.resx">
+      <DependentUpon>201608240409076_PortChangePhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.resx">
+      <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

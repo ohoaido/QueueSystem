@@ -7,13 +7,13 @@ namespace QueueSystem.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Information : IMigrationMetadata
+    public sealed partial class HeThongSo_Alter_STTOnline : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Information));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(HeThongSo_Alter_STTOnline));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608221422263_Information"; }
+            get { return "201608240432232_HeThongSo_Alter_STTOnline"; }
         }
         
         string IMigrationMetadata.Source

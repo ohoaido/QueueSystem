@@ -13,7 +13,7 @@ namespace QueueSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608180621246_Init"; }
+            get { return "201608240407050_Init"; }
         }
         
         string IMigrationMetadata.Source

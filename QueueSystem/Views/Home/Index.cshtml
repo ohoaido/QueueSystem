@@ -172,7 +172,7 @@
             var str = ['/lib/Voice_mp3/m1.mp3','/lib/Voice_mp3/m3.mp3'];
             var j = 0;
             output.forEach(function (value) {
-                if ( 3 > output.length && output.length > 1 && value == 1 && j == 0) {
+                if ( (3 > output.length && output.length > 1 && value == 1 && j == 0) || (4 > output.length && output.length > 2 && value == 1 && j == 1)) {
                     str.push('/lib/Voice_mp3/sb.mp3');
                     j++;
                 }
@@ -180,7 +180,14 @@
                 {
                     switch (value) {
                         case "0":
-                            str.push('/lib/Voice_mp3/s0.mp3');
+                            if ( output.length == 2 && j == 0) {
+                                str.push('/lib/Voice_mp3/sc.mp3');
+                                j++;
+                            }
+                            //else
+                            //{
+                            //    str.push('/lib/Voice_mp3/s0.mp3');
+                            //}
                             break;
                         case "1":
                             str.push('/lib/Voice_mp3/s1.mp3');
@@ -255,8 +262,32 @@
       left: 40%;
       resize: both;
     }
-    #playlist,audio{background:#666;width:400px;padding:20px;}
+    /*#playlist,audio{background:#666;width:400px;padding:20px;}
     .active a{color:#5DB0E6;text-decoration:none;}
     li a{color:#eeeedd;background:#333;padding:5px;display:block;}
-    li a:hover{text-decoration:none;}
+    li a:hover{text-decoration:none;}*/
+    div #conten #showManHinh {
+        text-align: center;
+        font-size:300px;
+        font-weight: bold;
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        top: 50%;
+        left: 50%;
+        margin-left: -50px; /* margin is -0.5 * dimension */
+        margin-top: -150px; 
+    }
+    div #conten #showNext {
+        text-align: center;
+        font-size:50px;
+        font-weight: bold;
+        position: absolute;
+        width: 100px;
+        height: 50px;
+        top: 70%;
+        left: 40%;
+        margin-left: -50px; /* margin is -0.5 * dimension */
+        margin-top: -150px; 
+    }
 </style>

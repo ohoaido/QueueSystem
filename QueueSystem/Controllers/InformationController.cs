@@ -38,6 +38,7 @@ namespace QueueSystem.Controllers
         // GET: Information/Create
         public ActionResult Create()
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             return View();
         }
 
@@ -46,8 +47,9 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,codePatient,FullName,Age,Status,IDCard,Address,IsPublic,Email,Mobile,DateCreated")] Information information)
+        public ActionResult Create([Bind(Include = "ID,codePatient,FullName,Age,Status,IDCard,Address,IsPublic,Email,Mobile,DateCreated,PortInfomaitonElectricID")] Information information)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             if (ModelState.IsValid)
             {
                 db.Informations.Add(information);
@@ -61,6 +63,7 @@ namespace QueueSystem.Controllers
         // GET: Information/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,8 +81,9 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,codePatient,FullName,Age,Status,IDCard,Address,IsPublic,Email,Mobile,DateCreated")] Information information)
+        public ActionResult Edit([Bind(Include = "ID,codePatient,FullName,Age,Status,IDCard,Address,IsPublic,Email,Mobile,DateCreated,PortInfomaitonElectricID")] Information information)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             if (ModelState.IsValid)
             {
                 db.Entry(information).State = EntityState.Modified;
@@ -92,6 +96,7 @@ namespace QueueSystem.Controllers
         // GET: Information/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

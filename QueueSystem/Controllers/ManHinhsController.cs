@@ -38,6 +38,7 @@ namespace QueueSystem.Controllers
         // GET: ManHinhs/Create
         public ActionResult Create()
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p=>p.IsPublic);
             return View();
         }
 
@@ -46,8 +47,9 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ManHinhSo")] ManHinh manHinh)
+        public ActionResult Create([Bind(Include = "ID,ManHinhSo,PortInfomaitonElectricID")] ManHinh manHinh)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList();
             if (ModelState.IsValid)
             {
                 db.ManHinhs.Add(manHinh);
@@ -61,6 +63,7 @@ namespace QueueSystem.Controllers
         // GET: ManHinhs/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -78,8 +81,9 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ManHinhSo")] ManHinh manHinh)
+        public ActionResult Edit([Bind(Include = "ID,ManHinhSo,PortInfomaitonElectricID")] ManHinh manHinh)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             if (ModelState.IsValid)
             {
                 db.Entry(manHinh).State = EntityState.Modified;

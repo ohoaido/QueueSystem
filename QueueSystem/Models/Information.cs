@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -18,5 +19,8 @@ namespace QueueSystem.Models
         public string Email { get; set; }
         public string Mobile { get; set; }
         public DateTime DateCreated { get; set; }
+        [Display(Name = "Cổng thông tin điện tử")]
+        public int PortInfomaitonElectricID { get; set; }
+        public PortInfomaitonElectric PortInfomaitonElectric { get; set; }
     }
 }

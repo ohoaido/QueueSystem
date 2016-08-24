@@ -15,7 +15,7 @@ namespace QueueSystem.Models
         public DateTime DateCreated { get; set; }
         public int ManHinhID { get; set; }
         public string TenManHinh { get; set; }
-        public int STTConfirmed { get; set; }
+        public Boolean STTConfirmed { get; set; }
         public DateTime Timer { get; set; }
     }
 }

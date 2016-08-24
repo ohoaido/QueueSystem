@@ -24,13 +24,17 @@ namespace QueueSystem.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
+
+        public DbSet<PortInfomaitonElectric> PortInfomaitonElectrics { get; set; }
         public DbSet<HeThongSo> HeThongSos { get; set; }
         public DbSet<ManHinh> ManHinhs { get; set; }
         public DbSet<Information> Informations { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
     }
 }

@@ -16,6 +16,8 @@ namespace QueueSystem.Migrations
                         Goi = c.Boolean(nullable: false),
                         DateCreated = c.DateTime(nullable: false),
                         ManHinhID = c.Int(nullable: false),
+                        STTConfirmed = c.Boolean(nullable: false),
+                        Timers = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.ManHinhs", t => t.ManHinhID, cascadeDelete: true)
@@ -27,8 +29,45 @@ namespace QueueSystem.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         ManHinhSo = c.String(),
+                        PortInfomaitonElectricID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.PortInfomaitonElectrics", t => t.PortInfomaitonElectricID, cascadeDelete: true)
+                .Index(t => t.PortInfomaitonElectricID);
+            
+            CreateTable(
+                "dbo.PortInfomaitonElectrics",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Url = c.String(),
+                        Name = c.String(),
+                        Phone = c.Int(nullable: false),
+                        Datecreated = c.DateTime(nullable: false),
+                        IsPublic = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.Information",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        codePatient = c.String(),
+                        FullName = c.String(),
+                        Age = c.DateTime(nullable: false),
+                        Status = c.Int(nullable: false),
+                        IDCard = c.String(),
+                        Address = c.String(),
+                        IsPublic = c.Boolean(nullable: false),
+                        Email = c.String(),
+                        Mobile = c.String(),
+                        DateCreated = c.DateTime(nullable: false),
+                        PortInfomaitonElectricID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("dbo.PortInfomaitonElectrics", t => t.PortInfomaitonElectricID, cascadeDelete: true)
+                .Index(t => t.PortInfomaitonElectricID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -106,19 +145,25 @@ namespace QueueSystem.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Information", "PortInfomaitonElectricID", "dbo.PortInfomaitonElectrics");
             DropForeignKey("dbo.HeThongSoes", "ManHinhID", "dbo.ManHinhs");
+            DropForeignKey("dbo.ManHinhs", "PortInfomaitonElectricID", "dbo.PortInfomaitonElectrics");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Information", new[] { "PortInfomaitonElectricID" });
+            DropIndex("dbo.ManHinhs", new[] { "PortInfomaitonElectricID" });
             DropIndex("dbo.HeThongSoes", new[] { "ManHinhID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Information");
+            DropTable("dbo.PortInfomaitonElectrics");
             DropTable("dbo.ManHinhs");
             DropTable("dbo.HeThongSoes");
         }
