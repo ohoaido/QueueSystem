@@ -10,6 +10,7 @@ using QueueSystem.Models;
 
 namespace QueueSystem.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class ManHinhsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

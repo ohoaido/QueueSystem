@@ -11,6 +11,8 @@ using QueueSystem.Models;
 
 namespace QueueSystem.Controllers
 {
+
+    [Authorize(Roles = "SuperAdmin")]
     public class PortInfomaitonElectricsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

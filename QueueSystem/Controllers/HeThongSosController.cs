@@ -12,6 +12,7 @@ using Microsoft.AspNet.SignalR.StockTicker;
 
 namespace QueueSystem.Controllers
 {
+    [Authorize(Roles = "SuperAdmin, Admin")]
     public class HeThongSosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
