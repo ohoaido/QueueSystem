@@ -20,6 +20,13 @@ namespace QueueSystem.Mappings
                 .ForMember(vm => vm.Goi, map => map.MapFrom(m => m.Goi))
                 .ForMember(vm => vm.STT, map => map.MapFrom(m => m.STT))
                 .ForMember(vm => vm.STTConfirmed, map => map.MapFrom(m => m.STTConfirmed));
+            Mapper.CreateMap<PortInfomaitonElectric, PortInfomaitonElectricViewModels>()
+                .ForMember(vm => vm.ID, map => map.MapFrom(m => m.ID))
+                .ForMember(vm => vm.Email, map => map.MapFrom(m => m.User.Email))
+                .ForMember(vm => vm.IsPublic, map => map.MapFrom(m => m.IsPublic))
+                .ForMember(vm => vm.Name, map => map.MapFrom(m => m.Name))
+                .ForMember(vm => vm.Phone, map => map.MapFrom(m => m.Phone))
+                .ForMember(vm => vm.Url, map => map.MapFrom(m => m.Url));
         }
     }
 }

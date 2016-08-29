@@ -11,6 +11,7 @@ namespace QueueSystem.App_Start
         public static void Register(HttpConfiguration config)
         {
             // TODO: Add any additional configuration code.
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

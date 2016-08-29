@@ -10,6 +10,7 @@ namespace QueueSystem.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            //AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(QueueSystem.Models.ApplicationDbContext context)

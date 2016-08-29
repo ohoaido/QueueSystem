@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using QueueSystem.Models;
+using System.Web.Http.Cors;
 
 namespace QueueSystem.Controllers
 {
@@ -18,6 +19,7 @@ namespace QueueSystem.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ApiInformation
+        [EnableCors(origins: "http://meditech.top", headers: "*", methods: "*")]
         public IQueryable<Information> GetInformations()
         {
             return db.Informations;

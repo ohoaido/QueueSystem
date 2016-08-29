@@ -7,15 +7,15 @@ using System.Web;
 
 namespace QueueSystem.Models
 {
-    public class PortInfomaitonElectric 
+    public class PortInfomaitonElectricViewModels
     {
         public int ID { get; set; }
         public string Url { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public DateTime Datecreated { get; set; }
-        public string Userid { get; set; }
         public Boolean IsPublic { get; set; }
-        public ApplicationUser User { get; set; }
+        public string UserID { get; set; }
+        public string Email { get; set; }
     }
 }

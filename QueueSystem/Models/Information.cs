@@ -12,9 +12,11 @@ namespace QueueSystem.Models
         public string codePatient { get; set; }
         public string FullName { get; set; }
         public DateTime Age { get; set; }
+        [Display(Name = "Loại bệnh nhân")]
         public int Status { get; set; }
         public string IDCard { get; set; }
         public string Address { get; set; }
+        [Display(Name = "Xác nhận")]
         public bool IsPublic { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }

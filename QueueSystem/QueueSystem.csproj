@@ -70,6 +70,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Speech" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -78,6 +82,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -222,6 +230,10 @@
     <Compile Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.Designer.cs">
       <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608290404059_PorttoApplicationUser.cs" />
+    <Compile Include="Migrations\201608290404059_PorttoApplicationUser.Designer.cs">
+      <DependentUpon>201608290404059_PorttoApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PortInfomaitonElectric.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
@@ -240,6 +252,7 @@
     <Compile Include="SignalR.Sample\StockTicker.cs" />
     <Compile Include="SignalR.Sample\StockTickerHub.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PortInfomaitonElectricViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Helper\AudioNumber.js" />
@@ -436,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.resx">
       <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608290404059_PorttoApplicationUser.resx">
+      <DependentUpon>201608290404059_PorttoApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

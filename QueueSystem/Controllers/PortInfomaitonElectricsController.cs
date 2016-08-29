@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -11,26 +10,25 @@ using QueueSystem.Models;
 
 namespace QueueSystem.Controllers
 {
-
-    [Authorize(Roles = "SuperAdmin")]
     public class PortInfomaitonElectricsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: PortInfomaitonElectrics
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.PortInfomaitonElectrics.ToListAsync());
+            var portInfomaitonElectrics = db.PortInfomaitonElectrics.Include(p => p.User);
+            return View(portInfomaitonElectrics.ToList());
         }
 
         // GET: PortInfomaitonElectrics/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortInfomaitonElectric portInfomaitonElectric = await db.PortInfomaitonElectrics.FindAsync(id);
+            PortInfomaitonElectric portInfomaitonElectric = db.PortInfomaitonElectrics.Find(id);
             if (portInfomaitonElectric == null)
             {
                 return HttpNotFound();
@@ -41,6 +39,7 @@ namespace QueueSystem.Controllers
         // GET: PortInfomaitonElectrics/Create
         public ActionResult Create()
         {
+            ViewBag.Userid = new SelectList(db.Users, "Id", "Email");
             return View();
         }
 
@@ -49,31 +48,32 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Url,Name,Phone,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
+        public ActionResult Create([Bind(Include = "ID,Url,Name,Phone,Datecreated,Userid,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
         {
             if (ModelState.IsValid)
             {
-                portInfomaitonElectric.Datecreated = DateTime.Now;
                 db.PortInfomaitonElectrics.Add(portInfomaitonElectric);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
         // GET: PortInfomaitonElectrics/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortInfomaitonElectric portInfomaitonElectric = await db.PortInfomaitonElectrics.FindAsync(id);
+            PortInfomaitonElectric portInfomaitonElectric = db.PortInfomaitonElectrics.Find(id);
             if (portInfomaitonElectric == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
@@ -82,25 +82,26 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Url,Name,Phone,Datecreated,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
+        public ActionResult Edit([Bind(Include = "ID,Url,Name,Phone,Datecreated,Userid,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(portInfomaitonElectric).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
         // GET: PortInfomaitonElectrics/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PortInfomaitonElectric portInfomaitonElectric = await db.PortInfomaitonElectrics.FindAsync(id);
+            PortInfomaitonElectric portInfomaitonElectric = db.PortInfomaitonElectrics.Find(id);
             if (portInfomaitonElectric == null)
             {
                 return HttpNotFound();
@@ -111,11 +112,11 @@ namespace QueueSystem.Controllers
         // POST: PortInfomaitonElectrics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            PortInfomaitonElectric portInfomaitonElectric = await db.PortInfomaitonElectrics.FindAsync(id);
+            PortInfomaitonElectric portInfomaitonElectric = db.PortInfomaitonElectrics.Find(id);
             db.PortInfomaitonElectrics.Remove(portInfomaitonElectric);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -82,3 +82,7 @@ C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.csproj.GenerateResource.Cache
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.Migrations.PortChangePhone.resources
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.Migrations.HeThongSo_Alter_STTOnline.resources
+C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\bin\System.Web.Cors.dll
+C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\bin\System.Web.Http.Cors.dll
+C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\bin\System.Web.Http.Cors.xml
+C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.Migrations.PorttoApplicationUser.resources
