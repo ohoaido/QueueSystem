@@ -13,7 +13,7 @@ namespace QueueSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608290404059_PorttoApplicationUser"; }
+            get { return "201608290540321_PorttoApplicationUser"; }
         }
         
         string IMigrationMetadata.Source

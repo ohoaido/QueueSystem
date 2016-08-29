@@ -14,8 +14,8 @@ namespace QueueSystem.Models
         public string Name { get; set; }
         public string Phone { get; set; }
         public DateTime Datecreated { get; set; }
-        public string Userid { get; set; }
+        [Display(Name = "Xác Nhận")]
         public Boolean IsPublic { get; set; }
-        public ApplicationUser User { get; set; }
+        public virtual ICollection<ApplicationUser> User { get; set; }
     }
 }

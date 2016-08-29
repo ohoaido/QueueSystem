@@ -15,10 +15,11 @@ namespace QueueSystem.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
+            //userIdentity.AddClaim(new Claim("PortInfomaitonElectric", this.PortInfomaitonElectric.ToString()));
             return userIdentity;
         }
-
-        public virtual ICollection<PortInfomaitonElectric> PortInfomaitonElectric { get; set; }
+        public int PortInfomaitonElectricID { get; set; }
+        public PortInfomaitonElectric PortInfomaitonElectric { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

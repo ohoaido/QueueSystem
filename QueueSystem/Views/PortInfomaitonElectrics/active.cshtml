@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<QueueSystem.Models.PortInfomaitonElectric>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Active";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -46,21 +43,10 @@
             @Html.DisplayFor(modelItem => item.Datecreated)
         </td>
         <td>
-            @if (item.IsPublic)
-            {
-                <p>Đã được xác nhận</p>
-            }
-            else
-            {
-                <p>
-                    Chưa được xác nhận
-                </p>
-            }
-</td>
+            @Html.DisplayFor(modelItem => item.IsPublic)
+        </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Active", "Acpactive", new { id=item.ID })
         </td>
     </tr>
 }

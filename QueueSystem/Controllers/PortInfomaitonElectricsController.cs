@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QueueSystem.Models;
+using Microsoft.AspNet.Identity;
 
 namespace QueueSystem.Controllers
 {
+    //[Authorize(Roles = "SuperAdmin")]
     public class PortInfomaitonElectricsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -17,8 +19,7 @@ namespace QueueSystem.Controllers
         // GET: PortInfomaitonElectrics
         public ActionResult Index()
         {
-            var portInfomaitonElectrics = db.PortInfomaitonElectrics.Include(p => p.User);
-            return View(portInfomaitonElectrics.ToList());
+            return View(db.PortInfomaitonElectrics.ToList());
         }
 
         // GET: PortInfomaitonElectrics/Details/5
@@ -39,7 +40,6 @@ namespace QueueSystem.Controllers
         // GET: PortInfomaitonElectrics/Create
         public ActionResult Create()
         {
-            ViewBag.Userid = new SelectList(db.Users, "Id", "Email");
             return View();
         }
 
@@ -48,16 +48,16 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Url,Name,Phone,Datecreated,Userid,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
+        public ActionResult Create([Bind(Include = "ID,Url,Name,Phone,Datecreated,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
         {
             if (ModelState.IsValid)
             {
+                portInfomaitonElectric.Datecreated = DateTime.Now;
                 db.PortInfomaitonElectrics.Add(portInfomaitonElectric);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
@@ -73,7 +73,6 @@ namespace QueueSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
@@ -82,15 +81,15 @@ namespace QueueSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Url,Name,Phone,Datecreated,Userid,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
+        public ActionResult Edit([Bind(Include = "ID,Url,Name,Phone,Datecreated,IsPublic")] PortInfomaitonElectric portInfomaitonElectric)
         {
             if (ModelState.IsValid)
             {
+                portInfomaitonElectric.Datecreated = DateTime.Now;
                 db.Entry(portInfomaitonElectric).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Userid = new SelectList(db.Users, "Id", "Email", portInfomaitonElectric.Userid);
             return View(portInfomaitonElectric);
         }
 
@@ -118,6 +117,23 @@ namespace QueueSystem.Controllers
             db.PortInfomaitonElectrics.Remove(portInfomaitonElectric);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult Active()
+        {
+            return View(db.PortInfomaitonElectrics.Where(i=>!i.IsPublic).ToList());
+        }
+        public ActionResult Acpactive(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PortInfomaitonElectric portInfomaitonElectric = db.PortInfomaitonElectrics.Find(id);
+            portInfomaitonElectric.IsPublic = true;
+            db.Entry(portInfomaitonElectric).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Active");
         }
 
         protected override void Dispose(bool disposing)

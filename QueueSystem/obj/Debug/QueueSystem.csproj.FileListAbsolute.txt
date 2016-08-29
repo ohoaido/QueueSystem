@@ -86,3 +86,4 @@ C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\bin\System.Web.Http.Cors.dll
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\bin\System.Web.Http.Cors.xml
 C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.Migrations.PorttoApplicationUser.resources
+C:\Users\hungngao\Documents\Visual Studio 2015\Projects\QueueSystem\QueueSystem\obj\Debug\QueueSystem.csprojResolveAssemblyReference.cache

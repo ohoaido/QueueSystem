@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +13,7 @@ namespace QueueSystem.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -139,6 +138,7 @@ namespace QueueSystem.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             return View();
         }
 
@@ -149,9 +149,10 @@ namespace QueueSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PortInfomaitonElectricID = model.Port};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -205,6 +205,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApiHeThongSosController.cs" />
     <Compile Include="Controllers\ApiInformationController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HeThongSosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InformationController.cs" />
@@ -230,9 +231,9 @@
     <Compile Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.Designer.cs">
       <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608290404059_PorttoApplicationUser.cs" />
-    <Compile Include="Migrations\201608290404059_PorttoApplicationUser.Designer.cs">
-      <DependentUpon>201608290404059_PorttoApplicationUser.cs</DependentUpon>
+    <Compile Include="Migrations\201608290540321_PorttoApplicationUser.cs" />
+    <Compile Include="Migrations\201608290540321_PorttoApplicationUser.Designer.cs">
+      <DependentUpon>201608290540321_PorttoApplicationUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PortInfomaitonElectric.cs" />
@@ -428,6 +429,8 @@
     <Content Include="Views\PortInfomaitonElectrics\Details.cshtml" />
     <Content Include="Views\PortInfomaitonElectrics\Edit.cshtml" />
     <Content Include="Views\PortInfomaitonElectrics\Index.cshtml" />
+    <Content Include="Views\PortInfomaitonElectrics\Active.cshtml" />
+    <Content Include="Views\Home\HeThongXepHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -450,8 +453,8 @@
     <EmbeddedResource Include="Migrations\201608240432232_HeThongSo_Alter_STTOnline.resx">
       <DependentUpon>201608240432232_HeThongSo_Alter_STTOnline.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608290404059_PorttoApplicationUser.resx">
-      <DependentUpon>201608290404059_PorttoApplicationUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608290540321_PorttoApplicationUser.resx">
+      <DependentUpon>201608290540321_PorttoApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

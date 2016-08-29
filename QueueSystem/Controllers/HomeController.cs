@@ -12,6 +12,11 @@ namespace QueueSystem.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult HeThongXepHang()
+        {
             return View(db.ManHinhs.ToList());
         }
 
