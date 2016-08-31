@@ -13,14 +13,32 @@ using Microsoft.AspNet.SignalR.StockTicker;
 namespace QueueSystem.Controllers
 {
     [Authorize(Roles = "SuperAdmin, Admin")]
-    public class HeThongSosController : Controller
+    public class HeThongSosController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: HeThongSoes
         public ActionResult Index()
         {
-            return View(db.HeThongSos.ToList().OrderBy(o=>o.ManHinhID));
+            var roles = db.Roles.Where(p => p.Users.Select(x => x.UserId == AccountID).FirstOrDefault());
+            Boolean flag = false;
+            foreach (var item in roles)
+            {
+                if (item.Name == "SuperAdmin")
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                return View(db.HeThongSos.ToList().OrderBy(o => o.ManHinhID));
+            }
+            else
+            {
+                int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+                return View(db.HeThongSos.Where(p => p.ManHinh.PortInfomaitonElectric.ID == PortInfomaitonElectricID).ToList());
+            }
         }
 
         // GET: HeThongSoes/Details/5

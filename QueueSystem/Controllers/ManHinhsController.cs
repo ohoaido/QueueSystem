@@ -7,18 +7,36 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QueueSystem.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace QueueSystem.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Admin")]
-    public class ManHinhsController : Controller
+    [Authorize]
+    public class ManHinhsController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: ManHinhs
         public ActionResult Index()
         {
-            return View(db.ManHinhs.ToList());
+            var roles = db.Roles.Where(p=>p.Users.Select(x=>x.UserId == AccountID).FirstOrDefault());
+            Boolean flag = false;
+            foreach (var item in roles)
+            {
+                if(item.Name == "SuperAdmin") {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                return View(db.ManHinhs.ToList());
+            }
+            else { 
+                int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+                return View(db.ManHinhs.Where(p => p.PortInfomaitonElectric.ID == PortInfomaitonElectricID).ToList());
+            }
         }
 
         // GET: ManHinhs/Details/5
@@ -39,7 +57,8 @@ namespace QueueSystem.Controllers
         // GET: ManHinhs/Create
         public ActionResult Create()
         {
-            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p=>p.IsPublic);
+            int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p=>p.IsPublic && p.ID == PortInfomaitonElectricID);
             return View();
         }
 
@@ -50,7 +69,8 @@ namespace QueueSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,ManHinhSo,PortInfomaitonElectricID")] ManHinh manHinh)
         {
-            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList();
+            int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic && p.ID == PortInfomaitonElectricID);
             if (ModelState.IsValid)
             {
                 db.ManHinhs.Add(manHinh);
@@ -64,7 +84,8 @@ namespace QueueSystem.Controllers
         // GET: ManHinhs/Edit/5
         public ActionResult Edit(int? id)
         {
-            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
+            int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic && p.ID == PortInfomaitonElectricID);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,7 +105,8 @@ namespace QueueSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,ManHinhSo,PortInfomaitonElectricID")] ManHinh manHinh)
         {
-            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic);
+            int PortInfomaitonElectricID = db.Users.Where(user => user.Id == AccountID).Select(p => p.PortInfomaitonElectricID).FirstOrDefault();
+            ViewBag.PortInfomaitonElectric = db.PortInfomaitonElectrics.ToList().Where(p => p.IsPublic && p.ID == PortInfomaitonElectricID);
             if (ModelState.IsValid)
             {
                 db.Entry(manHinh).State = EntityState.Modified;

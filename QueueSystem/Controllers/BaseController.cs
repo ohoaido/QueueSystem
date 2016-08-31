@@ -9,6 +9,6 @@ namespace QueueSystem.Controllers
 {
     public class BaseController : Controller
     {
-        protected string TruongID => System.Web.HttpContext.Current.User.Identity.GetUserId();
+        protected string AccountID => System.Web.HttpContext.Current.User.Identity.GetUserId();
     }
 }

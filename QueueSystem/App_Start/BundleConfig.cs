@@ -30,6 +30,21 @@ namespace QueueSystem
                       "~/Content/bootstrap.css",
                       "~/Content/siteview.css",
                       "~/Content/font-awesome.css"));
+            bundles.Add(new StyleBundle("~/Content/AnimatedBorderMenuscss").Include(
+                      "~/Content/AnimatedBorderMenus/css/icons.css",
+                      "~/Content/AnimatedBorderMenus/css/normalize.css",
+                      "~/Content/AnimatedBorderMenus/css/style5.css"));
+            bundles.Add(new StyleBundle("~/Content/SidebarTransitionscss").Include(
+                      "~/Content/SidebarTransitions/css/component.css",
+                      "~/Content/SidebarTransitions/css/components-right.css",
+                      "~/Content/SidebarTransitions/css/normalize.css",
+                      "~/Content/SidebarTransitions/css/icons.css",
+                      "~/Content/SidebarTransitions/css/demo.css"));
+            bundles.Add(new ScriptBundle("~/bundles/AnimatedBorderMenusjs").Include(
+                      "~/Scripts/borderMenu.js",
+                      "~/Scripts/classie.js",
+                      "~/Scripts/sidebarEffects.js",
+                      "~/Scripts/modernizr.custom.js"));
             //bundles.Add(new ScriptBundle("~/bundles/SignalR").Include(
             //          "~/jquery-1.10.2.min.js",
             //          "~/jquery.color-2.1.2.min.js",

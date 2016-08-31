@@ -1,3 +1,47 @@
 ﻿@{
     ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutView.cshtml";
 }
+<nav class="st-menu st-effect-11" id="menu-11">
+    <h2 class="icon icon-lab">Quản Lý Hệ Thống Xếp Hàng</h2>
+    <ul>
+        <li><a class="icon icon-data" href="/Home/HeThongXepHang">Xếp Hàng</a></li>
+        <li><a class="icon icon-location" href="/HeThongSos/">Hệ thống số</a></li>
+        <li><a class="icon icon-study" href="/ManHinhs/">Cổng</a></li>
+        <li><a class="icon icon-photo" href="/PortInfomaitonElectrics">Port</a></li>
+        <li><a class="icon icon-wallet" href="/Information/">Đăng Ký Thông tin Khám</a></li>
+    </ul>
+</nav>
+<!-- content push wrapper -->
+<div class="st-pusher">
+    <div class="st-content">
+        <!-- this is the wrapper for the content -->
+        <div class="st-content-inner">
+            <!-- extra div for emulating position:fixed of the menu -->
+            <!-- Top Navigation -->
+            <div class="codrops-top clearfix">
+                @*<a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Tutorials/3DShadingWithBoxShadows/"><span>Previous Demo</span></a>*@
+                @*<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=16292"><span>Back to the Codrops Article</span></a></span>*@
+            </div>
+            <header class="codrops-header">
+                <h1>Quản lý hệ thống xếp hàng <span>MeditechJSC</span></h1>
+            </header>
+            <div class="main clearfix">
+                <div id="st-trigger-effects" class="column">
+                    <button data-effect="st-effect-11">Quản lý hệ thống</button>
+                </div>
+                <div class="column">
+                    <p>Lời giới thiệu :</p>
+                    <p>Là tập hợp của đội ngũ kỹ sư CNTT, chuyên gia phần mềm, chuyên gia y tế – những người đã có 7 năm gắn bó với sứ mệnh Ứng dụng CNTT để nâng cao chất lượng Y tế nước ta.</p>
+                </div>
+                <div class="info">
+                    <p>CÔNG TY CỔ PHẦN MEDITECH</p>
+                    <p>Địa chỉ: Số 30, 110 Quan Nhân, P.Nhân Chính, Q.Thanh Xuân, Hà Nội</p>
+                    <p>Số điện thoại: 04 3225 2190</p>
+                    <p>Hotline: 0982 007 213</p>
+                    <p>Email: info@meditech.vn</p>
+                </div>
+            </div><!-- /main -->
+        </div><!-- /st-content-inner -->
+    </div><!-- /st-content -->
+</div><!-- /st-pusher -->
