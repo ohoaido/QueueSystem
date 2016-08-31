@@ -282,12 +282,12 @@
     <Content Include="Content\SidebarTransitions\css\demo.css" />
     <Content Include="Content\SidebarTransitions\css\icons.css" />
     <Content Include="Content\SidebarTransitions\css\normalize.css" />
-    <Content Include="Content\SidebarTransitions\fonts\codropsicons\codropsicons.svg" />
-    <Content Include="Content\SidebarTransitions\fonts\codropsicons\license.txt" />
+    <Content Include="fonts\codropsicons.svg" />
+    <Content Include="fonts\license.txt" />
     <Content Include="Content\SidebarTransitions\fonts\linecons\license.txt" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\linecons.dev.svg" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\linecons.svg" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\lte-ie7.js" />
+    <Content Include="fonts\linecons.dev.svg" />
+    <Content Include="fonts\linecons.svg" />
+    <Content Include="fonts\lte-ie7.js" />
     <Content Include="Content\SidebarTransitions\fonts\linecons\Read Me.txt" />
     <Content Include="Content\SidebarTransitions\index.html" />
     <Content Include="Scripts\classie.js" />
@@ -441,12 +441,12 @@
     <Content Include="Content\AnimatedBorderMenus\fonts\demoicons\minicons-webalys.woff" />
     <Content Include="Content\AnimatedBorderMenus\README.md" />
     <Content Include="Content\SidebarTransitions\bower.json" />
-    <Content Include="Content\SidebarTransitions\fonts\codropsicons\codropsicons.eot" />
-    <Content Include="Content\SidebarTransitions\fonts\codropsicons\codropsicons.ttf" />
-    <Content Include="Content\SidebarTransitions\fonts\codropsicons\codropsicons.woff" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\linecons.eot" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\linecons.ttf" />
-    <Content Include="Content\SidebarTransitions\fonts\linecons\linecons.woff" />
+    <Content Include="fonts\codropsicons.eot" />
+    <Content Include="fonts\codropsicons.ttf" />
+    <Content Include="fonts\codropsicons.woff" />
+    <Content Include="fonts\linecons.eot" />
+    <Content Include="fonts\linecons.ttf" />
+    <Content Include="fonts\linecons.woff" />
     <Content Include="Content\SidebarTransitions\README.md" />
     <None Include="Properties\PublishProfiles\HTXH.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -536,6 +536,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\AnimatedBorderMenus\js\" />
+    <Folder Include="Content\SidebarTransitions\fonts\codropsicons\" />
     <Folder Include="Content\SidebarTransitions\js\" />
   </ItemGroup>
   <ItemGroup>
