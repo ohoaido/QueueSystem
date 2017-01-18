@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Meditech Live Stream";
+}
+
+<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<script type="text/javascript">
+    var apiKey = '45692122';
+    var sessionId = '1_MX40NTY5MjEyMn5-MTQ3NDg1MzkxMTg5Mn5RTGM4SjFUMmlQWTZ1MFFVS2FIWHJGa2F-UH4';
+    var token = 'T1==cGFydG5lcl9pZD00NTY5MjEyMiZzaWc9M2ZiZDAwNDVmYjZhZTcyYjU3N2E1ODUxZjAwNjZiZTU5YTRkNmMxYzpzZXNzaW9uX2lkPTFfTVg0ME5UWTVNakV5TW41LU1UUTNORGcxTXpreE1UZzVNbjVSVEdNNFNqRlVNbWxRV1RaMU1GRlZTMkZJV0hKR2EyRi1VSDQmY3JlYXRlX3RpbWU9MTQ3NDg1Mzk4MyZub25jZT0wLjQ0MjQyNjA3NzU1NTg2NTA1JnJvbGU9cHVibGlzaGVyJmV4cGlyZV90aW1lPTE0NzQ5NDAzNzk=';
+
+    var session = OT.initSession(apiKey, sessionId);
+    session.connect(token, function (err) {
+        if(err){
+            alert("Lỗi");
+        } else {
+            session.publish();
+        }
+    });
+    session.on("streamCreated", function (event) {
+        session.subscribe(event.stream);
+    });
+	//var session = TB.initSession(sessionId);
+
+	//session.addEventListener('sessionConnected', sessionConnectedHandler);
+	//session.addEventListener('streamCreated', streamCreatedHandler);
+
+	//session.connect(apiKey, token);
+
+	//var publisher = OT.initPublisher('publisher', {
+	//  insertMode: 'append',
+	//});
+	//session.publish(publisher);
+
+	//function sessionConnectedHandler(event){
+	//	session.publish("myPublisher");
+
+	//	for(var i =0; i< event.streams.length; i++){
+	//		if(session.connection.connectionId != event.streams[i].connection.connectionId){
+	//			subscribeToStream(event.streams[i]);
+	//		}
+	//	}
+	//}
+
+	//function streamCreatedHandler(event){
+	//	for(var i =0; i< event.stream.length; i++){
+	//		if(session.connection.connectionId != event.streams[i].connection.connectionId){
+	//			subscribeToStream(event.streams[i]);
+	//		}
+	//	}
+	//}
+
+	//function subscribeToStream(stream){
+	//	var div = document.createElement('div');
+	//	div.setAttribute('id', 'stream-' + stream.streamId);
+	//	document.body.appendChild(div);
+
+	//	session.subscribe(stream, div.id);
+	//}
+</script>

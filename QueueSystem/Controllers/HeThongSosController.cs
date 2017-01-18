@@ -16,7 +16,7 @@ namespace QueueSystem.Controllers
     public class HeThongSosController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+            
         // GET: HeThongSoes
         public ActionResult Index()
         {

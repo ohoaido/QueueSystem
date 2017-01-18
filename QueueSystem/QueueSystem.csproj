@@ -62,6 +62,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="OpenTok, Version=2.3.5599.34963, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTok.2.3.0\lib\net35\OpenTok.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -287,9 +291,9 @@
     <Content Include="Content\SidebarTransitions\fonts\linecons\license.txt" />
     <Content Include="fonts\linecons.dev.svg" />
     <Content Include="fonts\linecons.svg" />
-    <Content Include="fonts\lte-ie7.js" />
     <Content Include="Content\SidebarTransitions\fonts\linecons\Read Me.txt" />
     <Content Include="Content\SidebarTransitions\index.html" />
+    <Content Include="fonts\lte-ie7.js" />
     <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\modernizr.custom.js" />
     <Content Include="Scripts\sidebarEffects.js" />
@@ -444,10 +448,10 @@
     <Content Include="fonts\codropsicons.eot" />
     <Content Include="fonts\codropsicons.ttf" />
     <Content Include="fonts\codropsicons.woff" />
+    <Content Include="Content\SidebarTransitions\README.md" />
     <Content Include="fonts\linecons.eot" />
     <Content Include="fonts\linecons.ttf" />
     <Content Include="fonts\linecons.woff" />
-    <Content Include="Content\SidebarTransitions\README.md" />
     <None Include="Properties\PublishProfiles\HTXH.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-1.12.4-vsdoc.js" />
@@ -532,12 +536,15 @@
     <Content Include="Views\PortInfomaitonElectrics\Index.cshtml" />
     <Content Include="Views\PortInfomaitonElectrics\Active.cshtml" />
     <Content Include="Views\Home\HeThongXepHang.cshtml" />
+    <Content Include="Views\Home\LiveStream.cshtml" />
+    <Content Include="Views\Home\LiveStreamChamSocKhachHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\AnimatedBorderMenus\js\" />
     <Folder Include="Content\SidebarTransitions\fonts\codropsicons\" />
     <Folder Include="Content\SidebarTransitions\js\" />
+    <Folder Include="fonts\linecons\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

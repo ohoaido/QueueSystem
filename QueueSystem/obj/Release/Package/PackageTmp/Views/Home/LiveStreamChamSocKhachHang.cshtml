@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Meditech Chăm Sóc Khách Hàng";
+}
+
+<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<script type="text/javascript">
+	var apiKey = '45691762';
+	var sessionId = 'Copying text command was successful';
+	var token = 'T1==cGFydG5lcl9pZD00NTY5MTc2MiZzaWc9ZGRlZTBiYzgwOWYzZGY2NTAzOTZlM2VmYmU4NzNhY2U2NmRmMmUzZTpzZXNzaW9uX2lkPTFfTVg0ME5UWTVNVGMyTW41LU1UUTNORGN6TnpNNU1ETTFObjU0VjJOS1dHNXVWbkl4U0d0WmEyNXpkRzlZY1hwcU1YRi1mZyZjcmVhdGVfdGltZT0xNDc0NzM3Mzk5Jm5vbmNlPTAuMjIwNjAzMTY2ODQ2NTU4NDUmcm9sZT1wdWJsaXNoZXImZXhwaXJlX3RpbWU9MTQ3NzMyOTM5OA==';
+
+	var session = TB.initSession(sessionId);
+
+	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.addEventListener('streamCreated', streamCreatedHandler);
+
+	session.connect(apiKey, token);
+
+	var publisher = OT.initPublisher('publisher', {
+	  insertMode: 'append',
+	});
+	session.publish(publisher);
+
+	function sessionConnectedHandler(event){
+		session.publish("myPublisher");
+
+		for(var i =0; i< event.streams.length; i++){
+			if(session.connection.connectionId != event.streams[i].connection.connectionId){
+				subscribeToStream(event.streams[i]);
+			}
+		}
+	}
+
+	function streamCreatedHandler(event){
+		for(var i =0; i< event.stream.length; i++){
+			if(session.connection.connectionId != event.streams[i].connection.connectionId){
+				subscribeToStream(event.streams[i]);
+			}
+		}
+	}
+
+	function subscribeToStream(stream){
+		var div = document.createElement('div');
+		div.setAttribute('id', 'stream-' + stream.streamId);
+		document.body.appendChild(div);
+
+		session.subscribe(stream, div.id);
+	}
+</script>

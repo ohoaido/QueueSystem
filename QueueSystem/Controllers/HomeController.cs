@@ -7,15 +7,17 @@ using System.Web.Mvc;
 
 namespace QueueSystem.Controllers
 {
-    [Authorize(Roles = "SuperAdmin, Admin")]
     public class HomeController : BaseController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin")]
         public ActionResult HeThongXepHang()
         {
             var roles = db.Roles.Where(p => p.Users.Select(x => x.UserId == AccountID).FirstOrDefault());
@@ -50,6 +52,15 @@ namespace QueueSystem.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult LiveStream()
+        {
+            return View();
+        }
+        public ActionResult LiveStreamChamSocKhachHang()
+        {
             return View();
         }
     }

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Meditech Live Stream";
+}
+
+<script src="https://static.opentok.com/v2/js/opentok.min.js"></script>
+<script type="text/javascript">
+	var apiKey = '45691762';
+	var sessionId = '1_MX40NTY5MTc2Mn5-MTQ3NDczMzc2NDg2MH5Xd3JNMGw1ZnJ3My9RVHlXRmFLWWZPK0N-fg';
+	var token = 'T1==cGFydG5lcl9pZD00NTY5MTc2MiZzaWc9MDU0MGE1NTNlMzQ2NGRhYWE0NWQxM2NkYmU3MmJiNjM0NWY2ODdjODpzZXNzaW9uX2lkPTFfTVg0ME5UWTVNVGMyTW41LU1UUTNORGN6TXpjMk5EZzJNSDVYZDNKTk1HdzFabkozTXk5UlZIbFhSbUZMV1daUEswTi1mZyZjcmVhdGVfdGltZT0xNDc0NzMzNzcyJm5vbmNlPTAuNzAyNzc5MjQ0NjMxNTI4OSZyb2xlPXB1Ymxpc2hlciZleHBpcmVfdGltZT0xNDc3MzI1Nzcx';
+
+	var session = TB.initSession(sessionId);
+
+	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.addEventListener('streamCreated', streamCreatedHandler);
+
+	session.connect(apiKey, token);
+
+	var publisher = OT.initPublisher('publisher', {
+	  insertMode: 'append',
+	});
+	session.publish(publisher);
+
+	function sessionConnectedHandler(event){
+		session.publish("myPublisher");
+
+		for(var i =0; i< event.streams.length; i++){
+			if(session.connection.connectionId != event.streams[i].connection.connectionId){
+				subscribeToStream(event.streams[i]);
+			}
+		}
+	}
+
+	function streamCreatedHandler(event){
+		for(var i =0; i< event.stream.length; i++){
+			if(session.connection.connectionId != event.streams[i].connection.connectionId){
+				subscribeToStream(event.streams[i]);
+			}
+		}
+	}
+
+	function subscribeToStream(stream){
+		var div = document.createElement('div');
+		div.setAttribute('id', 'stream-' + stream.streamId);
+		document.body.appendChild(div);
+
+		session.subscribe(stream, div.id);
+	}
+</script>

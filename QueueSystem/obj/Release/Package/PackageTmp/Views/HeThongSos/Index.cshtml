@@ -1,0 +1,89 @@
+﻿@model IEnumerable<QueueSystem.Models.HeThongSo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+    <a class="btn" title="Xoá toàn bộ"
+       href="#" onclick="DeleteAll();return false;">Xoá toàn bộ</a>
+</p>
+<table class="table" id="hethongso">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.STT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Goi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManHinhID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Timers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.STTConfirmed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.STT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Goi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ManHinhID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Timers)
+                </td>
+                <th>
+                    @Html.DisplayFor(modelItem => item.STTConfirmed)
+                </th>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    DeleteAll = function () {
+        $.ajax({
+            type: 'GET',
+            url: '/HeThongSos/DeleteAll',
+            data: "",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                if (msg == "Timer")
+                {
+                    window.location.reload();
+                }
+                else {
+                    $("#hethongso tbody").remove();
+                }
+            }
+        });
+    }
+</script>

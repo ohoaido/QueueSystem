@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QueueSystem.Models.ManHinh>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+    
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ManHinhSo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PortInfomaitonElectricID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.ID)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.ManHinhSo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PortInfomaitonElectricID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
